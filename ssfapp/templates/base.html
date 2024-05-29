@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %} </title>
+</head>
+<body>
+    <div id="content">
+        {% block content %}
+            {% if user.is_authenticated %}
+                <h2>Welcome {{ user.username }} </h2>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" value="Log Out">Log Out</button>
+                </form>
+            {% else %}
+                <p>You are not logged in </p>
+                <a href="{% url 'login'%}">Login</a>
+            {% endif %}
+        {% endblock %}
+    </div>
+</body>
+</html>
